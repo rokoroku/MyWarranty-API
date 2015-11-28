@@ -23,6 +23,7 @@ function getWarrantyById(request, reply) {
 
     Warranties.findOne(request.params.id)
         .populate('product')
+        .populate('brand')
         .populate('owner')
         .exec(function (err, warranty) {
             if (err) {

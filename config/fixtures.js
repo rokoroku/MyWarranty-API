@@ -72,6 +72,8 @@ module.exports = [
             {
                 "id": "APXAVN2572",
                 "product": "1_LPP15002G",
+                "brand": 1,
+                "owner": 1,
                 "sellerName": "LLOYD 동대점",
                 "sellerTel": "010-316-3624",
                 "sellerLocation": "충무로",
@@ -82,6 +84,7 @@ module.exports = [
             {
                 "id": "BEANPOLE1211",
                 "product": "3_BO5X38025H",
+                "brand": 3,
                 "sellerName": "삼성물산 패션공식몰",
                 "sellerTel": "1599-0007",
                 "sellerLocation": "서울특별시 강남구 도곡동 467-12",

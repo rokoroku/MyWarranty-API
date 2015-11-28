@@ -38,6 +38,34 @@ function getUserById(request, reply) {
     }
 }
 
+function getUserWarrantyList(request, reply) {
+    var Users = request.collections.user;
+    var Warranties = request.collections.warranty;
+
+    Users.findOne(request.params.id)
+        .exec(function (err, user) {
+            if (err) {
+                reply(err)
+            } else if (user) {
+                Warranties.find({owner: user.id})
+                    .populate('product')
+                    .populate('brand')
+                    .exec(function (err, warranties) {
+                        if (err) {
+                            reply(err)
+                        } else {
+                            var value = user.toObject()
+                            value.warranties = warranties;
+                            reply(value);
+                        }
+                    });
+            } else {
+                reply(Boom.notFound('User not found.'));
+            }
+        });
+
+}
+
 function createUser(request, reply) {
 
     var Users = request.collections.user;
@@ -123,7 +151,7 @@ module.exports = [
             description: 'Retrieve specific user by id',
             plugins: {
                 'hapi-swaggered': {
-                    operationId: 'getWarrantyById',
+                    operationId: 'getUserById',
                     responses: {
                         default: {
                             description: 'OK',
@@ -145,6 +173,36 @@ module.exports = [
                 }
             },
             handler: getUserById
+        }
+    },
+    {
+        method: 'GET',
+        path: '/user/{id}/warranties',
+        config: {
+            tags: ['api'],
+            auth: 'default',
+            description: 'Retrieve specific user with full warranty list by id',
+            plugins: {
+                'hapi-swaggered': {
+                    operationId: 'getWarrantyListById',
+                    responses: {
+                        default: {
+                            description: 'OK',
+                            schema: User.FullSchema
+                        },
+                        400: {description: 'Bad Request'},
+                        401: {description: 'Unauthorized'},
+                        404: {description: 'Object Not found'},
+                        500: {description: 'Internal Server Error'}
+                    }
+                }
+            },
+            validate: {
+                params: {
+                    id: Joi.string().required().description("the user's id")
+                },
+            },
+            handler: getUserWarrantyList
         }
     },
     {

@@ -44,16 +44,27 @@ exports.Collection = Waterline.Collection.extend({
 
     attributes: {
         id: {
-            type: 'integer', primaryKey: true, unique: true, autoIncrement: true
+            type: 'integer',
+            primaryKey: true,
+            unique: true,
+            autoIncrement: true
         },
         email: {
-            type: 'email', index: true, unique: true
+            type: 'email',
+            index: true,
+            unique: true
         },
         username: {
-            type: 'string', minLength: 2, maxLength: 20, index: true, unique: true
+            type: 'string',
+            minLength: 2,
+            maxLength: 20,
+            index: true,
+            unique: true,
+            required: true
         },
         password: {
-            type: 'string', required: true
+            type: 'string',
+            required: true
         },
         warranties: {
             collection: 'warranty',
