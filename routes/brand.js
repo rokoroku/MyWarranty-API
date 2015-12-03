@@ -98,11 +98,28 @@ function getProductById(request, reply) {
         });
 }
 
+function deleteProduct(request, reply) {
+    var Products = getProductCollection(request);
+    var key = Product.GenerateKey(request.params.id, request.params.productId);
+
+    Products.destroy({id: key}).exec(
+        function (err, product) {
+            if (err) {
+                reply(err);
+            } else {
+                reply(product);
+            }
+        }
+    )
+}
+
 function createProduct(request, reply) {
 
     var Products = getProductCollection(request);
     var payload = request.payload;
     var key = Product.GenerateKey(request.params.id, request.params.productId);
+
+    payload.productId = payload.id;
     payload.id = key;
 
     Products.create(payload).exec(
@@ -119,6 +136,8 @@ function updateProduct(request, reply) {
     var Products = getProductCollection(request);
     var payload = request.payload;
     var key = Product.GenerateKey(request.params.id, request.params.productId);
+
+    payload.productId = payload.id;
     payload.id = key;
 
     Products.update(key, payload)
@@ -323,6 +342,37 @@ module.exports = [
                 }
             },
             handler: getProductById
+        }
+    },
+    {
+        method: 'DELETE',
+        path: '/brand/{id}/product/{productId}',
+        config: {
+            tags: ['api', 'brand', 'product'],
+            auth: 'default',
+            description: 'Delete specific product by id',
+            plugins: {
+                'hapi-swaggered': {
+                    operationId: 'deleteProductById',
+                    responses: {
+                        default: {
+                            description: 'OK',
+                            schema: Product.FullSchema
+                        },
+                        400: {description: 'Bad Request'},
+                        401: {description: 'Unauthorized'},
+                        404: {description: 'Object Not found'},
+                        500: {description: 'Internal Server Error'}
+                    }
+                }
+            },
+            validate: {
+                params: {
+                    id: Joi.string().required().description("the brand's id"),
+                    productId: Joi.string().required().description("the product's id")
+                }
+            },
+            handler: deleteProduct
         }
     },
     {

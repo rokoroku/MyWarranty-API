@@ -129,7 +129,6 @@ function registerAuthStrategy(server) {
                         } else {
                             callback(null, false, {token: token})
                         }
-
                     });
             }
         }

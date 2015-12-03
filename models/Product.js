@@ -52,7 +52,6 @@ exports.Collection = Waterline.Collection.extend({
         },
         productId: {
             type: 'string',
-            required: true
         },
         brand: {
             model: 'brand',
@@ -78,14 +77,6 @@ exports.Collection = Waterline.Collection.extend({
             delete obj.productId;
             return obj;
         },
-
-        beforeValidate: function (values, next) {
-            if (values.id !== null && values.brand !== null) {
-                values.productId = values.id;
-                values.id = values.brand + "_" + values.productId;
-            }
-            next()
-        }
     }
 
 });

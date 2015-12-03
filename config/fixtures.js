@@ -31,6 +31,30 @@ module.exports = [
                 "description": "시계/귀금속소매-종합",
                 "logoImage": "http://image.fi.co.kr/ImgData/320/9653_1_659.jpg",
                 "products": ["2_LPP15002G"]
+            },
+            {
+                "id": 3,
+                "name": "BEANPOLE",
+                "tel": "000-0000-000",
+                "location": "서울",
+                "description": "패션 / 잡화",
+                "logoImage": "http://www.samsungfashion.com/images/home/sns/sns2_beanpole_logo.png",
+            },
+            {
+                "id": 4,
+                "name": "DKNY",
+                "tel": "02-123-4567",
+                "location": "서울",
+                "description": "패션잡화",
+                "logoImage": "http://inbigshop.com/sites/inbigshop.com/files/imagecache/max/i/%252Fclothing-shoes-amp-accessories/09/12/29/2530/dkny-6479052082530.png",
+            },
+            {
+                "id": 5,
+                "name": "kipling",
+                "tel": "1588-6983~4",
+                "location": "서울시 서초구 효령로 317 KIRA빌딩 2층",
+                "description": "패션잡화",
+                "logoImage": "http://www.vendio.com/stores/.template/kidultgarden/current/mycontent/KIPLING%20LOGO%20Pantone330.jpg",
             }
         ]
     },
@@ -91,8 +115,32 @@ module.exports = [
                 "memo": "사업자 등록번호 101-85-43600 대표 윤주화",
                 "purchaseDate": "2015-11-27T13:19:03.517Z",
                 "expirationDate": "2016-11-27T13:19:03.517Z"
+            },
+            {
+                "id": "clock",
+                "owner": 1,
+                "brand": 2,
+                "product": "0TC102510FS",
+                "sellerName": "ost",
+                "sellerTel": "1234",
+                "sellerLocation": "string",
+                "memo": "string",
+                "purchaseDate": "2015-11-28T07:37:42.019Z",
+                "expirationDate": "2016-11-28T07:37:42.019Z",
+            },
+            {
+                "id": "NY8540DK",
+                "brand": 4,
+                "product": "4_AKDUWNS",
+                "sellerName": "현대백화점 천호점",
+                "sellerTel": "02-2225-7369",
+                "sellerLocation": "서울 강동구 천호대로 1005 현대백화점",
+                "memo": "패션잡화",
+                "purchaseDate": "2015-12-02T05:28:12.368Z",
+                "expirationDate": "2015-12-02T05:28:12.368Z",
+                "createdAt": "2015-12-02T05:28:12.368Z",
+                "updatedAt": "2015-12-02T05:28:12.368Z"
             }
         ]
     }
-
 ];

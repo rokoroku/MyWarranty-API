@@ -80,6 +80,20 @@ function createUser(request, reply) {
     });
 }
 
+function deleteUser(request, reply) {
+
+    var Users = request.collections.user;
+
+    Users.destroy({id: request.params.id})
+        .exec(function (err, user) {
+            if (err) {
+                reply(err);
+            } else {
+                reply(user);
+            }
+    });
+}
+
 function updateUser(request, reply) {
     var Users = request.collections.user;
     var payload = request.payload;
@@ -173,6 +187,39 @@ module.exports = [
                 }
             },
             handler: getUserById
+        }
+    },
+    {
+        method: 'DELETE',
+        path: '/user/{id}',
+        config: {
+            tags: ['api', 'user'],
+            auth: 'default',
+            description: 'Delete specific user by id',
+            plugins: {
+                'hapi-swaggered': {
+                    operationId: 'deleteUserById',
+                    responses: {
+                        default: {
+                            description: 'OK',
+                            schema: User.FullSchema
+                        },
+                        400: {description: 'Bad Request'},
+                        401: {description: 'Unauthorized'},
+                        404: {description: 'Object Not found'},
+                        500: {description: 'Internal Server Error'}
+                    }
+                }
+            },
+            validate: {
+                params: {
+                    id: Joi.string().required().description("the user's id")
+                },
+                query: {
+                    populate: Joi.boolean().default('true').description("whether populate following/followers or not")
+                }
+            },
+            handler: deleteUser
         }
     },
     {

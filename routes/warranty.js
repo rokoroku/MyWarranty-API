@@ -65,6 +65,19 @@ function updateWarranty(request, reply) {
         });
 }
 
+function deleteWarranty(request, reply) {
+    var Warranties = getCollection(request);
+
+    Warranties.destroy({id: request.params.id})
+        .exec(function (err, warranty) {
+            if (err) {
+                reply(err);
+            } else {
+                reply(warranty);
+            }
+        });
+}
+
 module.exports = [
     {
         method: 'GET',
@@ -124,6 +137,36 @@ module.exports = [
                 },
             },
             handler: getWarrantyById
+        }
+    },
+    {
+        method: 'DELETE',
+        path: '/warranty/{id}',
+        config: {
+            tags: ['api'],
+            auth: 'default',
+            description: 'Delete specific warranty by id',
+            plugins: {
+                'hapi-swaggered': {
+                    operationId: 'deleteWarrantyById',
+                    responses: {
+                        default: {
+                            description: 'OK',
+                            schema: Warranty.FullSchema
+                        },
+                        400: {description: 'Bad Request'},
+                        401: {description: 'Unauthorized'},
+                        404: {description: 'Object Not found'},
+                        500: {description: 'Internal Server Error'}
+                    }
+                }
+            },
+            validate: {
+                params: {
+                    id: Joi.string().required().description("the warranty's id")
+                },
+            },
+            handler: deleteWarranty
         }
     },
     {
